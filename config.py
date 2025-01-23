@@ -57,5 +57,5 @@ def get_arguments():
                         default=[0.20, 0.18, 0.16, 0.14, 0.12, 0.10, 0.08, 0.06, 0.04, 0.02, 0.01])
     parser.add_argument("--trigger_list", type=list, default=['wanet', 'trojan', 'dynamic'])
     parser.add_argument("--top_q_threadhold", type=float, default=3.5)
-
+ 
     return parser
