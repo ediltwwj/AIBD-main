@@ -263,7 +263,7 @@ def train(args):
             transforms.ToTensor(),
         ])
 
-    for i in range(len(args.iso_ratio)):
+    for i in range(len(data_path_new_list)):
         new_data = np.load(data_path_new_list[i], allow_pickle=True)
         new_data_tf = Dataset_npy(full_dataset=new_data, transform=tf_new_train)
         new_data_loader = DataLoader(dataset=new_data_tf, batch_size=args.train_bs, shuffle=True)
