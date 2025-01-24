@@ -282,8 +282,7 @@ def train(args):
             temp_acc, temp_asr = val_epoch(aibd_base_net, clean_test_loader, bd_test_loader, device, criterion, args)
 
             # When the accuracy of the test is too different, it indicates that catastrophic forgetting occurs, and the top-q strategy is adopted
-            if epoch_idx == 4 and temp_acc < ori_acc - args.top_q_threadhold * 2.0:   # args.top_q_threadhold = 4.0
-            # if epoch_idx == 5 and temp_acc < ori_acc - args.top_q_threadhold * 2.0:   # args.top_q_threadhold = 3.5
+            if epoch_idx == 5 and temp_acc < ori_acc - args.top_q_threadhold * 2.0:   # args.top_q_threadhold = 3.5
                 print("Catastrophic Forgetting Occurs...")
                 break
             else:

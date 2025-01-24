@@ -56,6 +56,6 @@ def get_arguments():
     parser.add_argument("--iso_ratio", type=list,
                         default=[0.20, 0.18, 0.16, 0.14, 0.12, 0.10, 0.08, 0.06, 0.04, 0.02, 0.01])
     parser.add_argument("--trigger_list", type=list, default=['badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic'])
-    parser.add_argument("--top_q_threadhold", type=float, default=4.0)
+    parser.add_argument("--top_q_threadhold", type=float, default=3.5)
 
     return parser
