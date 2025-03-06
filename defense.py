@@ -11,7 +11,7 @@ from data_loader import *
 from getInit import *
 
 
-def pgd_attack_new(net, loss_fn, image, label, args):
+def adv_attack(net, loss_fn, image, label, args):
     epsilon, alpha, num_iterations = args.adv_epsilon, args.adv_alpha, args.adv_num_iterations
     perturbed_image = image.clone().detach().requires_grad_(True).to('cuda')
 
@@ -59,7 +59,7 @@ def count_adversarial_iter_nums(train_data, net, args, device='cuda'):
     adv_label_list = []
     for batch_idx, (input, target, index) in enumerate(train_loader):
         input, target, index = input.to(device), target.to(device), index.to(device)
-        adv_input, count, adv_label = pgd_attack_new(net, loss_fn, input, target, args)
+        adv_input, count, adv_label = adv_attack(net, loss_fn, input, target, args)
 
         count_list.append(count)
         adv_label_list.append(adv_label)
@@ -129,7 +129,6 @@ def isloation_bd_data(bd_train_data, count_list, bd_perm, adv_label_list, guess_
             bd_cnt = 0
             for batch_idx, (input, target, index) in enumerate(bd_train_loader):
                 if target.item() == guess_bd_label and count_list[index.item()] >= threshold_nums:
-                    # <原样本, 原标签> ==> <原样本, 对抗标签>
                     input = input.squeeze()
                     input = np.transpose((input * 255).cpu().numpy(), (1, 2, 0)).astype('uint8')
                     target = adv_label_list[index.item()]
@@ -282,13 +281,13 @@ def train(args):
             temp_acc, temp_asr = val_epoch(aibd_base_net, clean_test_loader, bd_test_loader, device, criterion, args)
 
             # When the accuracy of the test is too different, it indicates that catastrophic forgetting occurs, and the top-q strategy is adopted
-            if epoch_idx == 5 and temp_acc < ori_acc - args.top_q_threadhold * 2.0:   # args.top_q_threadhold = 3.5
+            if epoch_idx == 5 and temp_acc < ori_acc - args.drop_acc_threadhold * 2.0:
                 print("Catastrophic Forgetting Occurs...")
                 break
             else:
                 aibd_acc, aibd_asr = temp_acc, temp_asr
 
-        if temp_acc >= ori_acc - args.top_q_threadhold:
+        if temp_acc >= ori_acc - args.drop_acc_threadhold:
             print("Saving Best AIBD model {}%...".format(args.iso_ratio[i] * 100.0))
             aibd_acc, aibd_asr = temp_acc, temp_asr
             break

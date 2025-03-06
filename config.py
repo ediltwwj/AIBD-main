@@ -25,7 +25,7 @@ def get_arguments():
     parser.add_argument("--use_pretrain_model", type=bool, default=False)
 
     # Backdoor attack
-    parser.add_argument("--bd_ori_dict", type=bool, default=False)  # True返回后门样本{下标:原始标签} pgd_label
+    parser.add_argument("--bd_ori_dict", type=bool, default=False)
     parser.add_argument("--data_mode", type=str, default='bd')  # bd,clean
     parser.add_argument("--target_label", type=int, default=0)
     parser.add_argument('--trigger_type', type=str, default='badnets', help='type of backdoor trigger')
@@ -36,7 +36,6 @@ def get_arguments():
     parser.add_argument("--img_w", type=int, default=32)
     parser.add_argument("--img_h", type=int, default=32)
     parser.add_argument("--poison_rate", type=float, default=0.1)
-    parser.add_argument("--blend_ratio", type=float, default=0.2)
 
     # Adversial attack
     parser.add_argument("--adv_epsilon", type=float, default=255 / 255)
@@ -55,7 +54,10 @@ def get_arguments():
     parser.add_argument("--retrain_epoch", type=int, default=15)
     parser.add_argument("--iso_ratio", type=list,
                         default=[0.20, 0.18, 0.16, 0.14, 0.12, 0.10, 0.08, 0.06, 0.04, 0.02, 0.01])
-    parser.add_argument("--trigger_list", type=list, default=['badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic'])
-    parser.add_argument("--top_q_threadhold", type=float, default=3.5)
+    parser.add_argument("--trigger_list", type=list, default=['badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic',
+                                                              'badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic',
+                                                              'badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic',
+                                                              'badnets', 'blend', 'sig', 'wanet', 'trojan', 'dynamic'])
+    parser.add_argument("--drop_acc_threadhold", type=float, default=3.5)
 
     return parser
