@@ -60,7 +60,7 @@ class GTSRB(Dataset):
         return len(self.images)
 
     def __getitem__(self, index):
-        image = Image.open(self.images[index])  # 直接用这句会说打开文件太多
+        image = Image.open(self.images[index])
         if self.transforms is not None:
             image = self.transforms(image)
         label = self.labels[index]
@@ -598,12 +598,12 @@ class DatasetBD(Dataset):
             raise Exception("Invalid dataset")
 
         trans_img = transforms.Compose([
-            transforms.ToTensor(),  # ==》CHW
+            transforms.ToTensor(),
             transforms.Normalize(mean, std),
         ])
         untrans_img = transforms.Compose([
             transforms.Normalize(mean=[-m / s for m, s in zip(mean, std)], std=[1 / s for s in std]),
-            transforms.ToPILImage(),  # ==》HWC
+            transforms.ToPILImage(),
         ])
 
         img_torch = trans_img(img).unsqueeze(0)
