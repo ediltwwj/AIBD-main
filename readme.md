@@ -23,7 +23,7 @@ Pytorch implement of our paper [**Adversarial-Inspired Backdoor Defense via Brid
    ​	python defense.py --trigger_list ['badnets']
 
 ## Citation
-
+Yin J L, Wang W, Lin W, et al. Adversarial-Inspired Backdoor Defense via Bridging Backdoor and Adversarial Attacks[C]//Proceedings of the AAAI Conference on Artificial Intelligence. 2025, 39(9): 9508-9516.
 ## Help
 
 When you have any question/idea about the code/paper. Please comment in Github or send us Email. We will reply as soon as possible.
